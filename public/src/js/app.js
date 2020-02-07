@@ -1,6 +1,8 @@
 // Register service worker
 // navigator = browser
 
+var deferredPrompt;
+
 // Detect if service worker feature is available in the browser
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
@@ -13,3 +15,16 @@ if ('serviceWorker' in navigator) {
       });
     });
 }
+
+// Triggered right before about to show Install banner
+window.addEventListener('beforeinstallprompt', function(event){
+  console.log('beforeinstallprompt fired')
+
+  // Prevent install banner
+  event.preventDefault();
+
+  // Save event to trigger later
+  deferredPrompt = event;
+
+  return false;
+});
