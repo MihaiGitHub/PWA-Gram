@@ -3,6 +3,10 @@
 
 var deferredPrompt;
 
+if(!window.Promise){
+  window.Promise = Promise;
+}
+
 // Detect if service worker feature is available in the browser
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
