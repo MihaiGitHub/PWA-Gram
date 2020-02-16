@@ -20,5 +20,20 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  event.respondWith(fetch(event.request));
+  event.respondWith(
+
+    // Look at all subcaches and see if the resource is there
+    caches.match(event.request).then(function(response){
+      
+      if(response){
+        // If not null, return value from the cache
+        return response;
+      } else {
+        // If it is not in the request, return the request
+        return fetch(event.request);
+      }
+    })
+    .catch()
+    
+  );
 });
